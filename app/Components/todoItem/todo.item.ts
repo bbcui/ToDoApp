@@ -1,7 +1,6 @@
 /**
  * Created by bcui on 2/1/16.
  */
-
 import {Component} from "angular2/core"
 
 @Component({
@@ -9,4 +8,6 @@ import {Component} from "angular2/core"
     templateUrl : "app/Components/todoItem/todo.item.html"
 })
 
-export class todoItem {}
+export class todoItem {
+    name = "John";
+}
