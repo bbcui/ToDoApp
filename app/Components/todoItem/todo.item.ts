@@ -9,5 +9,7 @@ import {Component} from "angular2/core"
 })
 
 export class todoItem {
-    name = "John";
+    //public constructor(public name :string, public status :string = "started"){
+    //
+    //}
 }

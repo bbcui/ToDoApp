@@ -18,7 +18,6 @@ System.register(["angular2/core"], function(exports_1) {
         execute: function() {
             todoItem = (function () {
                 function todoItem() {
-                    this.name = "John";
                 }
                 todoItem = __decorate([
                     core_1.Component({
