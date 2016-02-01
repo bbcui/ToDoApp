@@ -25,7 +25,7 @@ System.register(['angular2/core', '../todoItem/todo.item'], function(exports_1) 
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        templateUrl: 'app/Components/appComponent/app.Component.html',
+                        templateUrl: 'app/Components/appComponent/app.component.html',
                         directives: [todo_item_1.todoItem]
                     }), 
                     __metadata('design:paramtypes', [])
