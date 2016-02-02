@@ -1,0 +1,21 @@
+<div  style="margin: auto; width:600px">
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="#todo of todos">
+                <div>
+                    <input type="checkbox" value="">
+                    <span class="todoLabel" #todoLabel (dblclick) = "editMode(todoLabel,todoInput)">{{todo.name}}</span> 
+                    <input type="hidden" #todoInput name="" id="input1/(\w+)/\u\1/g" class="form-control" required="required" value={{todo.name}} (keyup)=finishEdit(todo,$event,todoLabel,todoInput)>   
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" id="" placeholder="Input field" >
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+</div>

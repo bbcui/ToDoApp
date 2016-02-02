@@ -10,6 +10,11 @@
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet"
+    <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./app/assets/css/index.css" />
     <!-- 2. Configure SystemJS -->
     <script>
       System.config({
@@ -26,8 +31,22 @@
   </head>
   <!-- 3. Display the application -->
   <body>
-      Add you Angular 2 Application
-      <my-app>Loading..</my-app>
+     
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+                <div><a class="navbar-brand" href="#">To Do App</a></div>    
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#"><span>Home</span></a></li>
+                    <li><a href="#"><span>Link</span></a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+        </div>
+    </nav>
+      
+    <my-app>Loading..</my-app>
   </body>
 
 </html>

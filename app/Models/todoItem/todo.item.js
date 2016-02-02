@@ -1,0 +1,21 @@
+System.register([], function(exports_1) {
+    var todoItem;
+    return {
+        setters:[],
+        execute: function() {
+            /**
+             * Created by bcui on 2/1/16.
+             */
+            todoItem = (function () {
+                function todoItem(name, status) {
+                    if (status === void 0) { status = 'started'; }
+                    this.name = name;
+                    this.status = status;
+                }
+                return todoItem;
+            })();
+            exports_1("todoItem", todoItem);
+        }
+    }
+});
+//# sourceMappingURL=todo.item.js.map
