@@ -28,24 +28,41 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     this.todos.push(new todo_item_1.todoItem("first todo", "started"));
                     this.todos.push(new todo_item_1.todoItem("second todo", "started"));
                 }
-                todoList.prototype.editMode = function (todoLabel, todoInput) {
-                    todoInput.type = (todoInput.type == "hidden") ? "text" : "hidden";
+                todoList.prototype.editMode = function (editForm, todoLabel, todoInput) {
+                    editForm.style.display = (editForm.style.display == "") ? "inline" : "";
                     todoLabel.style.display = (todoLabel.style.display == "none") ? "" : "none";
-                    console.log(todoLabel);
-                    console.log(todoInput);
                     // event.target.contenteditable = true;
                     // console.log(event.target);
+                    if (editForm.style.display != "") {
+                        todoInput.focus();
+                    }
                 };
-                todoList.prototype.finishEdit = function (todo, event, todoLabel, todoInput) {
+                todoList.prototype.finishEdit = function (todo, event, editForm, todoLabel, todoInput) {
                     console.log(event);
                     if (event.keyCode == 13) {
                         todo.name = todoInput.value;
-                        this.editMode(todoLabel, todoInput);
+                        this.editMode(editForm, todoLabel, todoInput);
                     }
                     else if (event.keyCode == 27) {
                         todoInput.value = todo.name;
-                        this.editMode(todoLabel, todoInput);
+                        this.editMode(editForm, todoLabel, todoInput);
                     }
+                };
+                todoList.prototype.saveChanges = function (todo, todoInput, todoLabel, editForm) {
+                    todo.name = todoInput.value;
+                    this.editMode(editForm, todoLabel, todoInput);
+                };
+                todoList.prototype.cancelUpdate = function (todo, todoInput, todoLabel, editForm) {
+                    todoInput.value = todo.name;
+                    this.editMode(editForm, todoLabel, todoInput);
+                };
+                todoList.prototype.addTodo = function (newTodo) {
+                    this.todos.push(new todo_item_1.todoItem(newTodo.value));
+                    newTodo.value = "";
+                };
+                todoList.prototype.deleteToDo = function (todo) {
+                    var index = this.todos.indexOf(todo);
+                    this.todos = this.todos.slice(0, index).concat(this.todos.slice(index + 1));
                 };
                 todoList = __decorate([
                     core_1.Component({

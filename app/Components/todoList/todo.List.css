@@ -1,3 +1,26 @@
-.todoLabel {
-    
+.list-group-item .form-inline{
+    margin-left: 10px;
+    display: none;
+    width: 80%;
+}
+
+.list-group-item {
+    height: 56px;
+    padding-top: 10px;
+}
+
+/*.list-group-item span{
+    margin-left: 10px;
+}*/
+.ToDoItem{
+    vertical-align: middle;
+}
+
+.todoLabel{
+    padding: 11px 16px;
+}
+
+.deleteBtn {
+    float: right;
+    right: 0px;
 }
