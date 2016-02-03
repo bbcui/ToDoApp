@@ -84,4 +84,13 @@ export class todoList implements OnInit{
         }
     }
     
+    public clearCompleted(){
+        todos = [];
+        this.todos.forEach(todo => {
+            if (todo.status == "started") {
+                todos.push(todo);
+            }
+        });
+        this.todos = todos;
+    }
 }

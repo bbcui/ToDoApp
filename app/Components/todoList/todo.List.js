@@ -86,6 +86,15 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                         this.showCompleteButtonName = "Hide Completed";
                     }
                 };
+                todoList.prototype.clearCompleted = function () {
+                    todos = [];
+                    this.todos.forEach(function (todo) {
+                        if (todo.status == "started") {
+                            todos.push(todo);
+                        }
+                    });
+                    this.todos = todos;
+                };
                 todoList = __decorate([
                     core_1.Component({
                         selector: "todo-list",

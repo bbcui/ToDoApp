@@ -18,6 +18,10 @@
 
 .todoLabel{
     padding: 11px 16px;
+    font-size: 16px;
+    font-family: "Lucida Console";
+    font-weight: bold;
+    vertical-align:middle;
 }
 
 .deleteBtn {
