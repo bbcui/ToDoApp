@@ -29,6 +29,8 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                 function todoList(_todoProvider) {
                     this._todoProvider = _todoProvider;
                     this.todos = [];
+                    this.isShowComplete = false;
+                    this.showCompleteButtonName = "Show all";
                 }
                 todoList.prototype.ngOnInit = function () {
                     this.todos = this._todoProvider.getToDos();
@@ -46,6 +48,9 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     console.log(event.target);
                     console.log(todoInput.className);
                     if (event.keyCode == 13) {
+                        if (todoInput.validity.valid === false) {
+                            return;
+                        }
                         this.saveChanges(todo, todoInput, todoLabel, editForm);
                     }
                     else if (event.keyCode == 27) {
@@ -53,9 +58,6 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     }
                 };
                 todoList.prototype.saveChanges = function (todo, todoInput, todoLabel, editForm) {
-                    if (!editForm.form.valid) {
-                        return;
-                    }
                     todo.name = todoInput.value;
                     this.editMode(editForm, todoLabel, todoInput);
                 };
@@ -73,6 +75,16 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                 };
                 todoList.prototype.toggleStatus = function (todo) {
                     todo.status = (todo.status == "completed") ? "started" : "completed";
+                };
+                todoList.prototype.toggleShowCompleted = function () {
+                    if (this.isShowComplete) {
+                        this.isShowComplete = false;
+                        this.showCompleteButtonName = "Show All";
+                    }
+                    else {
+                        this.isShowComplete = true;
+                        this.showCompleteButtonName = "Hide Completed";
+                    }
                 };
                 todoList = __decorate([
                     core_1.Component({

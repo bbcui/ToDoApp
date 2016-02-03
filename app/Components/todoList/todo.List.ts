@@ -13,6 +13,9 @@ import {todoProvider} from "../../Services/todoProvider"
 
 export class todoList implements OnInit{
     todos = [];
+    isShowComplete: boolean = false;
+    showCompleteButtonName: string = "Show all";
+    
     constructor(private _todoProvider: todoProvider){
         
     }
@@ -35,6 +38,9 @@ export class todoList implements OnInit{
         console.log(event.target);
         console.log(todoInput.className);
         if (event.keyCode == 13) {
+            if(todoInput.validity.valid === false) {
+                return;
+            }
             this.saveChanges(todo,todoInput,todoLabel,editForm);
         } else if (event.keyCode == 27) {
             this.cancelUpdate(todo,todoInput,todoLabel,editForm);
@@ -42,9 +48,6 @@ export class todoList implements OnInit{
     }
     
     public saveChanges(todo, todoInput, todoLabel, editForm){
-        if (!editForm.form.valid){
-            return;
-        }
         todo.name = todoInput.value;
         this.editMode(editForm, todoLabel,todoInput);
     }
@@ -71,5 +74,14 @@ export class todoList implements OnInit{
         todo.status = (todo.status == "completed") ? "started" : "completed";
     }
     
+    public toggleShowCompleted(){
+        if (this.isShowComplete) {
+            this.isShowComplete = false;
+            this.showCompleteButtonName = "Show All";
+        } else {
+           this.isShowComplete = true;
+           this.showCompleteButtonName = "Hide Completed"; 
+        }
+    }
     
 }

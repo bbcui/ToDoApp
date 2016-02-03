@@ -22,17 +22,17 @@
         </ul>
     </div>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <form class="form-inline" role="form">
                 <div class="form-group">
                     <input type="text" #newTodo class="form-control" placeholder="Input field" >
                 </div>
                 <button type="submit" class="btn btn-primary" (click)=addTodo(newTodo)>Add</button>
+                <span style="float:right">
+                <button type="button" class="btn btn-primary" (click)="toggleShowCompleted()" >{{showCompleteButtonName}}</button>
+                <button type="button" class="btn btn-primary" (click)="clearCompleted()" >Clear Completed</button>
+                </span>
             </form>
-        </div>
-        <div class="col-lg-6 text-right" >
-            <button type="button" class="btn btn-primary">Show Completed</button>
-            <button type="button" class="btn btn-primary" (click)="clearCompleted()" >Clear Completed</button>
         </div>
     </div>
 </div>
