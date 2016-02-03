@@ -15,6 +15,5 @@ export class todoProvider{
           {name : "To Do 4", status: "started"}
         ];
     }
-    
 }
 

@@ -19,6 +19,14 @@ System.register(["angular2/core"], function(exports_1) {
             todoProvider = (function () {
                 function todoProvider() {
                 }
+                todoProvider.prototype.getToDos = function () {
+                    return [
+                        { name: "To Do 1", status: "started" },
+                        { name: "To Do 2", status: "started" },
+                        { name: "To Do 3", status: "completed" },
+                        { name: "To Do 4", status: "started" }
+                    ];
+                };
                 todoProvider = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])

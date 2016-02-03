@@ -1,19 +1,22 @@
 import {Component} from "angular2/core"
 import {todoItem} from '../../Models/todoItem/todo.item'
 import {NgFor} from "angular2/common"
+import {todoProvider} from "../../Services/todoProvider"
 
 @Component({
     selector: "todo-list",
     templateUrl: "app/Components/todoList/todo.List.html",
     styleUrls :["app/Components/todoList/todo.List.css"],
-    directives:[NgFor]
+    directives:[NgFor],
+    providers: [todoProvider] 
 })
 
 export class todoList{
     todos = [];
-    constructor(){
-        this.todos.push(new todoItem("first todo","started"));
-        this.todos.push(new todoItem("second todo","started"));
+    constructor( _todoProvider: todoProvider){
+        this.todos = _todoProvider.getToDos();
+        //this.todos.push(new todoItem("first todo","started"));
+        //this.todos.push(new todoItem("second todo","started"));
     }
     
     public editMode(editForm,todoLabel,todoInput){

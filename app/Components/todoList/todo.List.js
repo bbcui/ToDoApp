@@ -1,4 +1,4 @@
-System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/common"], function(exports_1) {
+System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/common", "../../Services/todoProvider"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, todo_item_1, common_1;
+    var core_1, todo_item_1, common_1, todoProvider_1;
     var todoList;
     return {
         setters:[
@@ -20,13 +20,17 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
             },
             function (common_1_1) {
                 common_1 = common_1_1;
+            },
+            function (todoProvider_1_1) {
+                todoProvider_1 = todoProvider_1_1;
             }],
         execute: function() {
             todoList = (function () {
-                function todoList() {
+                function todoList(_todoProvider) {
                     this.todos = [];
-                    this.todos.push(new todo_item_1.todoItem("first todo", "started"));
-                    this.todos.push(new todo_item_1.todoItem("second todo", "started"));
+                    this.todos = _todoProvider.getToDos();
+                    //this.todos.push(new todoItem("first todo","started"));
+                    //this.todos.push(new todoItem("second todo","started"));
                 }
                 todoList.prototype.editMode = function (editForm, todoLabel, todoInput) {
                     editForm.style.display = (editForm.style.display == "") ? "inline" : "";
@@ -69,9 +73,10 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                         selector: "todo-list",
                         templateUrl: "app/Components/todoList/todo.List.html",
                         styleUrls: ["app/Components/todoList/todo.List.css"],
-                        directives: [common_1.NgFor]
+                        directives: [common_1.NgFor],
+                        providers: [todoProvider_1.todoProvider]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [todoProvider_1.todoProvider])
                 ], todoList);
                 return todoList;
             })();
