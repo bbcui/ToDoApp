@@ -1,4 +1,4 @@
-import {Component} from "angular2/core"
+import {Component, OnInit} from "angular2/core"
 import {todoItem} from '../../Models/todoItem/todo.item'
 import {NgFor} from "angular2/common"
 import {todoProvider} from "../../Services/todoProvider"
@@ -11,10 +11,14 @@ import {todoProvider} from "../../Services/todoProvider"
     providers: [todoProvider] 
 })
 
-export class todoList{
+export class todoList implements OnInit{
     todos = [];
     constructor(private _todoProvider: todoProvider){
-        this.todos = _todoProvider.getToDos();
+        
+    }
+    
+    ngOnInit(){
+        this.todos = this._todoProvider.getToDos();
     }
     
     public editMode(editForm,todoLabel,todoInput){
@@ -30,7 +34,7 @@ export class todoList{
     public finishEdit(todo, event, editForm, todoLabel, todoInput) {
         console.log(event);
         if (event.keyCode == 13) {
-            todo.name = todoInput.value;
+            todo.name = todoInput.value; 
             this.editMode(editForm, todoLabel,todoInput);
         } else if (event.keyCode == 27) {
             todoInput.value = todo.name;

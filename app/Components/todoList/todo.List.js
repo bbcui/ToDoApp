@@ -29,8 +29,10 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                 function todoList(_todoProvider) {
                     this._todoProvider = _todoProvider;
                     this.todos = [];
-                    this.todos = _todoProvider.getToDos();
                 }
+                todoList.prototype.ngOnInit = function () {
+                    this.todos = this._todoProvider.getToDos();
+                };
                 todoList.prototype.editMode = function (editForm, todoLabel, todoInput) {
                     editForm.style.display = (editForm.style.display == "") ? "inline" : "";
                     todoLabel.style.display = (todoLabel.style.display == "none") ? "" : "none";
