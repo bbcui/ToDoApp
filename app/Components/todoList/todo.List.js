@@ -66,6 +66,9 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     this.editMode(editForm, todoLabel, todoInput);
                 };
                 todoList.prototype.addTodo = function (newTodo) {
+                    if (newTodo.value == "") {
+                        return;
+                    }
                     this.todos.push(new todo_item_1.todoItem(newTodo.value));
                     newTodo.value = "";
                 };
@@ -87,7 +90,7 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     }
                 };
                 todoList.prototype.clearCompleted = function () {
-                    todos = [];
+                    var todos = [];
                     this.todos.forEach(function (todo) {
                         if (todo.status == "started") {
                             todos.push(todo);

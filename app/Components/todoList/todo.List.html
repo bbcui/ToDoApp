@@ -1,10 +1,12 @@
-<div  style="margin: auto; width:800px">
+<div  style="margin: auto; width:600px">
     <div>
         <ul class="list-group">
-            <li class="list-group-item" *ngFor="#todo of todos">
+            <li class="list-group-item" *ngFor="#todo of todos" [ngClass]=todo.status >
                 <div class="ToDoItem">
-                    <input type="checkbox" (click)="toggleStatus(todo)" [checked]="todo.status == 'completed'">
-                    <span class="todoLabel" [ngClass]=todo.status #todoLabel (dblclick) = "editMode(editForm,todoLabel,todoInput)">{{todo.name}}</span> 
+                    <span style="margin-top:8px">
+                        <input type="checkbox" style="margin-top:12px" (click)="toggleStatus(todo)" [checked]="todo.status == 'completed'">
+                        <span class="todoLabel" [ngClass]=todo.status #todoLabel (dblclick) = "editMode(editForm,todoLabel,todoInput)">{{todo.name}}</span> 
+                    </span>
                     <form class="form-inline" #editForm role="form" >
                     <!--<div class="input-group" #editForm>-->
                         <input type="text" #todoInput class="form-control"  required="required" [ngModel]=todo.name ngControl="todoInput" (keyup)=finishEdit(todo,$event,editForm,todoLabel,todoInput)> 

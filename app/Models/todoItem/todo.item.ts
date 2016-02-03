@@ -4,4 +4,8 @@
 export class todoItem {
     constructor(public name :string, public status : string = 'started') {   
     }
+    
+    public toggleStatus() {
+        this.status = (this.status == "completed") ? "started" : "completed";
+    }
 }

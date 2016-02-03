@@ -1,4 +1,4 @@
-System.register(["angular2/core"], function(exports_1) {
+System.register(["angular2/core", "../Models/todoItem/todo.item"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,23 +8,26 @@ System.register(["angular2/core"], function(exports_1) {
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1;
+    var core_1, todo_item_1;
     var todoProvider;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
+            },
+            function (todo_item_1_1) {
+                todo_item_1 = todo_item_1_1;
             }],
         execute: function() {
             todoProvider = (function () {
                 function todoProvider() {
+                    this.todos = Array();
                     this.todos = [
-                        { name: "To Do 1", status: "started" },
-                        { name: "To Do 2", status: "started" },
-                        { name: "To Do 3", status: "completed" },
-                        { name: "To Do 4", status: "started" }
+                        new todo_item_1.todoItem("To Do 1", "started"),
+                        new todo_item_1.todoItem("To Do 2", "started"),
+                        new todo_item_1.todoItem("To Do 3", "completed"),
+                        new todo_item_1.todoItem("To Do 4", "started")
                     ];
-                    ;
                 }
                 todoProvider.prototype.getToDos = function () {
                     return this.todos;

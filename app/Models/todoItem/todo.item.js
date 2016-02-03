@@ -12,6 +12,9 @@ System.register([], function(exports_1) {
                     this.name = name;
                     this.status = status;
                 }
+                todoItem.prototype.toggleStatus = function () {
+                    this.status = (this.status == "completed") ? "started" : "completed";
+                };
                 return todoItem;
             })();
             exports_1("todoItem", todoItem);

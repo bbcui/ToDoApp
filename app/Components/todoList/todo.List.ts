@@ -58,6 +58,9 @@ export class todoList implements OnInit{
     }
     
     public addTodo(newTodo){
+        if (newTodo.value == "") {
+            return;
+        }
         this.todos.push(new todoItem(newTodo.value));
         newTodo.value = "";
         
@@ -85,7 +88,7 @@ export class todoList implements OnInit{
     }
     
     public clearCompleted(){
-        todos = [];
+        let todos = [];
         this.todos.forEach(todo => {
             if (todo.status == "started") {
                 todos.push(todo);

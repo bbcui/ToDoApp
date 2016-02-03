@@ -29,8 +29,11 @@
     right: 0px;
 }
 
-.completed {
+.todoLabel.completed {
     text-decoration: line-through;
+}
+.list-group-item.completed{
+    background: yellowgreen;
 }
 
 .ng-invalid {
