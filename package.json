@@ -4,9 +4,6 @@
   "description": "Empty Angular2 Project",
   "main": "index.html",
   "scripts": {
-    // "tsc": "tsc",
-    // "tsc:w": "tsc -w",
-    // "lite": "lite-server",
     "start": "node server"     
   },
   "license": "ISC",
