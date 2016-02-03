@@ -43,17 +43,19 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     }
                 };
                 todoList.prototype.finishEdit = function (todo, event, editForm, todoLabel, todoInput) {
-                    console.log(event);
+                    console.log(event.target);
+                    console.log(todoInput.className);
                     if (event.keyCode == 13) {
-                        todo.name = todoInput.value;
-                        this.editMode(editForm, todoLabel, todoInput);
+                        this.saveChanges(todo, todoInput, todoLabel, editForm);
                     }
                     else if (event.keyCode == 27) {
-                        todoInput.value = todo.name;
-                        this.editMode(editForm, todoLabel, todoInput);
+                        this.cancelUpdate(todo, todoInput, todoLabel, editForm);
                     }
                 };
                 todoList.prototype.saveChanges = function (todo, todoInput, todoLabel, editForm) {
+                    if (!editForm.form.valid) {
+                        return;
+                    }
                     todo.name = todoInput.value;
                     this.editMode(editForm, todoLabel, todoInput);
                 };
