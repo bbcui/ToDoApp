@@ -18,14 +18,18 @@ System.register(["angular2/core"], function(exports_1) {
         execute: function() {
             todoProvider = (function () {
                 function todoProvider() {
-                }
-                todoProvider.prototype.getToDos = function () {
-                    return [
+                    this.todos = [
                         { name: "To Do 1", status: "started" },
                         { name: "To Do 2", status: "started" },
                         { name: "To Do 3", status: "completed" },
                         { name: "To Do 4", status: "started" }
                     ];
+                    ;
+                }
+                todoProvider.prototype.getToDos = function () {
+                    return this.todos;
+                };
+                todoProvider.prototype.addNewTodo = function () {
                 };
                 todoProvider = __decorate([
                     core_1.Injectable(), 

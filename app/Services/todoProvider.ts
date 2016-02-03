@@ -7,13 +7,22 @@ import {todoItem} from "../Models/todoItem/todo.item"
 @Injectable()
 
 export class todoProvider{
+    todos: todoItem[];
     public getToDos() {
-        return [
+        return this.todos;
+    }
+    
+    constructor(){
+        this.todos = [
           {name : "To Do 1", status: "started"},  
           {name : "To Do 2", status: "started"},
           {name : "To Do 3", status: "completed"},
           {name : "To Do 4", status: "started"}
-        ];
+        ];;
+    }
+    
+    public addNewTodo(){
+        
     }
 }
 

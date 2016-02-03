@@ -13,10 +13,8 @@ import {todoProvider} from "../../Services/todoProvider"
 
 export class todoList{
     todos = [];
-    constructor( _todoProvider: todoProvider){
+    constructor(private _todoProvider: todoProvider){
         this.todos = _todoProvider.getToDos();
-        //this.todos.push(new todoItem("first todo","started"));
-        //this.todos.push(new todoItem("second todo","started"));
     }
     
     public editMode(editForm,todoLabel,todoInput){
@@ -62,4 +60,10 @@ export class todoList{
             ...this.todos.slice(index+1)
         ];
     }
+    
+    public toggleStatus(todo : todoItem) {
+        todo.status = (todo.status == "completed") ? "started" : "completed";
+    }
+    
+    
 }

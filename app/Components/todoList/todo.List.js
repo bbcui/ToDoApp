@@ -27,10 +27,9 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
         execute: function() {
             todoList = (function () {
                 function todoList(_todoProvider) {
+                    this._todoProvider = _todoProvider;
                     this.todos = [];
                     this.todos = _todoProvider.getToDos();
-                    //this.todos.push(new todoItem("first todo","started"));
-                    //this.todos.push(new todoItem("second todo","started"));
                 }
                 todoList.prototype.editMode = function (editForm, todoLabel, todoInput) {
                     editForm.style.display = (editForm.style.display == "") ? "inline" : "";
@@ -67,6 +66,9 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                 todoList.prototype.deleteToDo = function (todo) {
                     var index = this.todos.indexOf(todo);
                     this.todos = this.todos.slice(0, index).concat(this.todos.slice(index + 1));
+                };
+                todoList.prototype.toggleStatus = function (todo) {
+                    todo.status = (todo.status == "completed") ? "started" : "completed";
                 };
                 todoList = __decorate([
                     core_1.Component({
