@@ -1,7 +1,14 @@
 <div  style="margin: auto; width:600px">
     <div>
+        <form class="form-inline">
+            <label class="sr-only" for="">Search: </label>
+            <input type="text" #searchInput class="form-control" id="" placeholder="startWith">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+    <div>
         <ul class="list-group">
-            <li class="list-group-item" *ngFor="#todo of _todoProvider.todos" [ngClass]=todo.status [class.hidden]="hideCompleted && todo.status == 'completed'" >
+            <li class="list-group-item" *ngFor="#todo of _todoProvider.todos | searchPipe:searchInput.value" [ngClass]=todo.status [class.hidden]="hideCompleted && todo.status == 'completed'" >
                 <div class="ToDoItem">
                     <span style="margin-top:8px">
                         <input type="checkbox" style="margin-top:12px" (click)="toggleStatus(todo)" [checked]="todo.status == 'completed'">

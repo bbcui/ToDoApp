@@ -1,4 +1,4 @@
-System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/common", "../../Services/todoProvider"], function(exports_1) {
+System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/common", "../../Services/todoProvider/todoProvider", "../../Services/searchPipe/search-pipe"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, todo_item_1, common_1, todoProvider_1;
+    var core_1, todo_item_1, common_1, todoProvider_1, search_pipe_1;
     var todoList;
     return {
         setters:[
@@ -23,6 +23,9 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
             },
             function (todoProvider_1_1) {
                 todoProvider_1 = todoProvider_1_1;
+            },
+            function (search_pipe_1_1) {
+                search_pipe_1 = search_pipe_1_1;
             }],
         execute: function() {
             todoList = (function () {
@@ -43,8 +46,6 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     }
                 };
                 todoList.prototype.finishEdit = function (todo, event, editForm, todoLabel, todoInput) {
-                    console.log(event.target);
-                    console.log(todoInput.className);
                     if (event.keyCode == 13) {
                         if (todoInput.validity.valid === false) {
                             return;
@@ -56,6 +57,7 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     }
                 };
                 todoList.prototype.saveChanges = function (todo, todoInput, todoLabel, editForm) {
+                    //TODO: refactor into todoprovider
                     todo.name = todoInput.value;
                     this.editMode(editForm, todoLabel, todoInput);
                 };
@@ -74,6 +76,7 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     this._todoProvider.deleteToDo(todo);
                 };
                 todoList.prototype.toggleStatus = function (todo) {
+                    //TODO:refactor into todoProvider
                     todo.status = (todo.status == "completed") ? "started" : "completed";
                 };
                 todoList.prototype.toggleShowCompleted = function () {
@@ -95,7 +98,8 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                         templateUrl: "app/Components/todoList/todo.List.html",
                         styleUrls: ["app/Components/todoList/todo.List.css"],
                         directives: [common_1.NgFor],
-                        providers: [todoProvider_1.todoProvider]
+                        providers: [todoProvider_1.todoProvider],
+                        pipes: [search_pipe_1.searchPipe]
                     }), 
                     __metadata('design:paramtypes', [todoProvider_1.todoProvider])
                 ], todoList);

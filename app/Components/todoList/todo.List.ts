@@ -1,14 +1,16 @@
 import {Component, OnInit} from "angular2/core"
 import {todoItem} from '../../Models/todoItem/todo.item'
 import {NgFor} from "angular2/common"
-import {todoProvider} from "../../Services/todoProvider"
+import {todoProvider} from "../../Services/todoProvider/todoProvider"
+import {searchPipe} from "../../Services/searchPipe/search-pipe"
 
 @Component({
     selector: "todo-list",
     templateUrl: "app/Components/todoList/todo.List.html",
     styleUrls :["app/Components/todoList/todo.List.css"],
     directives:[NgFor],
-    providers: [todoProvider] 
+    providers: [todoProvider],
+    pipes:[searchPipe]
 })
 
 export class todoList implements OnInit{
@@ -33,8 +35,6 @@ export class todoList implements OnInit{
     }
    
     public finishEdit(todo, event, editForm, todoLabel, todoInput) {
-        console.log(event.target);
-        console.log(todoInput.className);
         if (event.keyCode == 13) {
             if(todoInput.validity.valid === false) {
                 return;
@@ -46,6 +46,7 @@ export class todoList implements OnInit{
     }
     
     public saveChanges(todo, todoInput, todoLabel, editForm){
+        //TODO: refactor into todoprovider
         todo.name = todoInput.value;
         this.editMode(editForm, todoLabel,todoInput);
     }
@@ -61,13 +62,13 @@ export class todoList implements OnInit{
         }
         this._todoProvider.addNewTodo(new todoItem(newTodo.value));
         newTodo.value = "";
-        
     }
     public deleteToDo(todo :todoItem) {
         this._todoProvider.deleteToDo(todo);
     }
     
     public toggleStatus(todo : todoItem) {
+        //TODO:refactor into todoProvider
         todo.status = (todo.status == "completed") ? "started" : "completed";
     }
     

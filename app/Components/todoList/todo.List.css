@@ -10,6 +10,10 @@
     transition: all 0.25s linear;
 }
 
+.searchBox{
+    border-width: 3px;
+    border: #a94442;
+}
 .hidden{
     transition: all 1s linear;
 }
