@@ -1,7 +1,7 @@
 <div  style="margin: auto; width:600px">
     <div>
         <ul class="list-group">
-            <li class="list-group-item" *ngFor="#todo of todos" [ngClass]=todo.status [class.hidden]="hideCompleted && todo.status == 'completed'" >
+            <li class="list-group-item" *ngFor="#todo of _todoProvider.todos" [ngClass]=todo.status [class.hidden]="hideCompleted && todo.status == 'completed'" >
                 <div class="ToDoItem">
                     <span style="margin-top:8px">
                         <input type="checkbox" style="margin-top:12px" (click)="toggleStatus(todo)" [checked]="todo.status == 'completed'">

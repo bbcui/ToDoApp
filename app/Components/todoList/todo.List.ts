@@ -12,7 +12,6 @@ import {todoProvider} from "../../Services/todoProvider"
 })
 
 export class todoList implements OnInit{
-    todos = [];
     hideCompleted: boolean = true;
     showCompleteButtonName: string = "Show all";
     
@@ -21,7 +20,6 @@ export class todoList implements OnInit{
     }
     
     ngOnInit(){
-        this.todos = this._todoProvider.getToDos();
     }
     
     public editMode(editForm,todoLabel,todoInput){
@@ -61,16 +59,12 @@ export class todoList implements OnInit{
         if (newTodo.value == "") {
             return;
         }
-        this.todos.push(new todoItem(newTodo.value));
+        this._todoProvider.addNewTodo(new todoItem(newTodo.value));
         newTodo.value = "";
         
     }
     public deleteToDo(todo :todoItem) {
-        let index = this.todos.indexOf(todo);
-        this.todos = [
-            ...this.todos.slice(0,index),
-            ...this.todos.slice(index+1)
-        ];
+        this._todoProvider.deleteToDo(todo);
     }
     
     public toggleStatus(todo : todoItem) {
@@ -88,12 +82,6 @@ export class todoList implements OnInit{
     }
     
     public clearCompleted(){
-        let todos = [];
-        this.todos.forEach(todo => {
-            if (todo.status == "started") {
-                todos.push(todo);
-            }
-        });
-        this.todos = todos;
+       this._todoProvider.clearCompleted();
     }
 }

@@ -32,7 +32,21 @@ System.register(["angular2/core", "../Models/todoItem/todo.item"], function(expo
                 todoProvider.prototype.getToDos = function () {
                     return this.todos;
                 };
-                todoProvider.prototype.addNewTodo = function () {
+                todoProvider.prototype.addNewTodo = function (newToDo) {
+                    this.todos = this.todos.concat([newToDo]);
+                };
+                todoProvider.prototype.deleteToDo = function (todo) {
+                    var index = this.todos.indexOf(todo);
+                    this.todos = this.todos.slice(0, index).concat(this.todos.slice(index + 1));
+                };
+                todoProvider.prototype.clearCompleted = function () {
+                    var todos = [];
+                    this.todos.forEach(function (todo) {
+                        if (todo.status == "started") {
+                            todos.push(todo);
+                        }
+                    });
+                    this.todos = todos;
                 };
                 todoProvider = __decorate([
                     core_1.Injectable(), 

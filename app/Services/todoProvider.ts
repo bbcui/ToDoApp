@@ -8,6 +8,7 @@ import {todoItem} from "../Models/todoItem/todo.item"
 
 export class todoProvider{
     todos = Array<todoItem>();
+    
     public getToDos() {
         return this.todos;
     }
@@ -20,8 +21,26 @@ export class todoProvider{
          new todoItem("To Do 4", "started")
         ];
     }
-    public addNewTodo(){
-        
+    public addNewTodo(newToDo : todoItem){
+        this.todos = [...this.todos, newToDo];
+    }
+    
+    public deleteToDo(todo :todoItem) {
+        let index = this.todos.indexOf(todo);
+        this.todos = [
+            ...this.todos.slice(0,index),
+            ...this.todos.slice(index+1)
+        ];
+    } 
+    
+    public clearCompleted(){
+        let todos = [];
+        this.todos.forEach(todo => {
+            if (todo.status == "started") {
+                todos.push(todo);
+            }
+        });
+        this.todos = todos;
     }
 }
 

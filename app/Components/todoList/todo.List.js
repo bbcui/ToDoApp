@@ -28,12 +28,10 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
             todoList = (function () {
                 function todoList(_todoProvider) {
                     this._todoProvider = _todoProvider;
-                    this.todos = [];
                     this.hideCompleted = true;
                     this.showCompleteButtonName = "Show all";
                 }
                 todoList.prototype.ngOnInit = function () {
-                    this.todos = this._todoProvider.getToDos();
                 };
                 todoList.prototype.editMode = function (editForm, todoLabel, todoInput) {
                     editForm.style.display = (editForm.style.display == "") ? "inline" : "";
@@ -69,12 +67,11 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     if (newTodo.value == "") {
                         return;
                     }
-                    this.todos.push(new todo_item_1.todoItem(newTodo.value));
+                    this._todoProvider.addNewTodo(new todo_item_1.todoItem(newTodo.value));
                     newTodo.value = "";
                 };
                 todoList.prototype.deleteToDo = function (todo) {
-                    var index = this.todos.indexOf(todo);
-                    this.todos = this.todos.slice(0, index).concat(this.todos.slice(index + 1));
+                    this._todoProvider.deleteToDo(todo);
                 };
                 todoList.prototype.toggleStatus = function (todo) {
                     todo.status = (todo.status == "completed") ? "started" : "completed";
@@ -90,13 +87,7 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     }
                 };
                 todoList.prototype.clearCompleted = function () {
-                    var todos = [];
-                    this.todos.forEach(function (todo) {
-                        if (todo.status == "started") {
-                            todos.push(todo);
-                        }
-                    });
-                    this.todos = todos;
+                    this._todoProvider.clearCompleted();
                 };
                 todoList = __decorate([
                     core_1.Component({
