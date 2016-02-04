@@ -29,7 +29,7 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                 function todoList(_todoProvider) {
                     this._todoProvider = _todoProvider;
                     this.todos = [];
-                    this.isShowComplete = false;
+                    this.hideCompleted = true;
                     this.showCompleteButtonName = "Show all";
                 }
                 todoList.prototype.ngOnInit = function () {
@@ -80,13 +80,13 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     todo.status = (todo.status == "completed") ? "started" : "completed";
                 };
                 todoList.prototype.toggleShowCompleted = function () {
-                    if (this.isShowComplete) {
-                        this.isShowComplete = false;
-                        this.showCompleteButtonName = "Show All";
+                    if (this.hideCompleted) {
+                        this.hideCompleted = false;
+                        this.showCompleteButtonName = "Hide Completed";
                     }
                     else {
-                        this.isShowComplete = true;
-                        this.showCompleteButtonName = "Hide Completed";
+                        this.hideCompleted = true;
+                        this.showCompleteButtonName = "Show All";
                     }
                 };
                 todoList.prototype.clearCompleted = function () {

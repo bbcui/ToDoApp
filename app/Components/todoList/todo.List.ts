@@ -13,7 +13,7 @@ import {todoProvider} from "../../Services/todoProvider"
 
 export class todoList implements OnInit{
     todos = [];
-    isShowComplete: boolean = false;
+    hideCompleted: boolean = true;
     showCompleteButtonName: string = "Show all";
     
     constructor(private _todoProvider: todoProvider){
@@ -78,12 +78,12 @@ export class todoList implements OnInit{
     }
     
     public toggleShowCompleted(){
-        if (this.isShowComplete) {
-            this.isShowComplete = false;
-            this.showCompleteButtonName = "Show All";
+        if (this.hideCompleted) {
+            this.hideCompleted = false;
+            this.showCompleteButtonName = "Hide Completed";
         } else {
-           this.isShowComplete = true;
-           this.showCompleteButtonName = "Hide Completed"; 
+           this.hideCompleted = true;
+           this.showCompleteButtonName = "Show All"; 
         }
     }
     

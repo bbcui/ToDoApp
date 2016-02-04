@@ -7,11 +7,13 @@
 .list-group-item {
     height: 56px;
     padding-top: 10px;
+    transition: all 0.25s linear;
 }
 
-/*.list-group-item span{
-    margin-left: 10px;
-}*/
+.hidden{
+    transition: all 1s linear;
+}
+
 .ToDoItem{
     vertical-align: middle;
 }
@@ -23,6 +25,7 @@
     font-weight: bold;
     vertical-align:middle;
 }
+
 
 .deleteBtn {
     float: right;
