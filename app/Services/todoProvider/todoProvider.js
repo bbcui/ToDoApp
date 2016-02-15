@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../Models/todoItem/todo.item"], function(exports_1) {
+System.register(["angular2/core"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,32 +8,52 @@ System.register(["angular2/core", "../../Models/todoItem/todo.item"], function(e
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, todo_item_1;
+    var core_1;
     var todoProvider;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (todo_item_1_1) {
-                todo_item_1 = todo_item_1_1;
             }],
         execute: function() {
             todoProvider = (function () {
                 function todoProvider() {
                     this.todos = Array();
-                    this.todos = [
-                        new todo_item_1.todoItem("To Do 1", "started"),
-                        new todo_item_1.todoItem("To Do 2", "started"),
-                        new todo_item_1.todoItem("To Do 3", "completed"),
-                        new todo_item_1.todoItem("To Do 4", "started")
-                    ];
+                    this.todo = this.initToDoList();
+                    // this.todos = [
+                    //  new todoItem("To Do 1", "started"),  
+                    //  new todoItem("To Do 2", "started"),
+                    //  new todoItem("To Do 3", "completed"),
+                    //  new todoItem("To Do 4", "started")
+                    // ];
+                    this.dataRef = new Firebase('https://bcui.firebaseio.com/todo');
+                    // this.todos.forEach(element => {
+                    //     this.dataRef.set(element);
+                    // });
+                    //this.todos = this.initToDoList();
                 }
                 todoProvider.prototype.getToDos = function () {
                     return this.todos;
                 };
+                todoProvider.prototype.newgetToDos = function () {
+                    this.initToDoList().then(function (snap) {
+                        console.log("fff");
+                    });
+                };
+                todoProvider.prototype.initToDoList = function () {
+                    var _this = this;
+                    return new Promise(function (resolve, reject) {
+                        _this.dataRef.once('value', function (snapshot) {
+                            resolve(snapshot);
+                        });
+                    });
+                };
+                todoProvider.prototype.test = function (input) {
+                };
                 todoProvider.prototype.addNewTodo = function (newToDo) {
                     this.todos = this.todos.concat([newToDo]);
+                    //this.dataRef.push(newToDo);
+                    console.log(this.dataRef);
                 };
                 todoProvider.prototype.deleteToDo = function (todo) {
                     var index = this.todos.indexOf(todo);

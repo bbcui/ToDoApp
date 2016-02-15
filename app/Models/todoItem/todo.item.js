@@ -7,8 +7,9 @@ System.register([], function(exports_1) {
              * Created by bcui on 2/1/16.
              */
             todoItem = (function () {
-                function todoItem(name, status) {
+                function todoItem(key, name, status) {
                     if (status === void 0) { status = 'started'; }
+                    this.key = key;
                     this.name = name;
                     this.status = status;
                 }

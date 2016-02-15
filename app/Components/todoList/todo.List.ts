@@ -22,6 +22,13 @@ export class todoList implements OnInit{
     }
     
     ngOnInit(){
+        // this._todoProvider.initToDoList().then(function(snap) {
+        //     snap.forEach(function(ele) {
+        //         console.log(ele.key());
+        //     })
+        // });
+        
+        // console.log("test");
     }
     
     public editMode(editForm,todoLabel,todoInput){

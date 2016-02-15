@@ -35,6 +35,12 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                     this.showCompleteButtonName = "Show all";
                 }
                 todoList.prototype.ngOnInit = function () {
+                    // this._todoProvider.initToDoList().then(function(snap) {
+                    //     snap.forEach(function(ele) {
+                    //         console.log(ele.key());
+                    //     })
+                    // });
+                    // console.log("test");
                 };
                 todoList.prototype.editMode = function (editForm, todoLabel, todoInput) {
                     editForm.style.display = (editForm.style.display == "") ? "inline" : "";
