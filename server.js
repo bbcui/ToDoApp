@@ -4,21 +4,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var todoModel = require('./server/app.js')
 
 var index = require('./server/routes/index');
-//var todos = require('./routes/todos');
+var todos = require('./server/routes/todoAPI');
 
-// mongoose.connect('mongodb://bcui:123qwe@ds062438.mongolab.com:62438/bcui', function(err){
-//     if(err) {
-//         console.log("error occured", err);
-//     } else {
-//         console.log("connected to DB");
-//     }
-// })
- 
 var app = express();
  
+mongoose.connect('mongodb://bcui:123qwe@ds062438.mongolab.com:62438/bcui', function(err){
+    if(err) {
+        console.log("error occured", err);
+    } else {
+        console.log("connected to DB");
+    }
+})
+
 // view engine setup
 app.set('views', __dirname);
 app.set('view engine', 'ejs');
@@ -32,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname));
 
 app.use('/', index);
-//app.use('/api/v1/', todos);
+app.use('/api/', todos)
  
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -41,10 +40,20 @@ app.use(function(req, res, next) {
     next(err);
 });
  
+process.on('SIGINT', function () {
+  console.log("Closing");
+  app.close();
+});
+ 
+app.on('close', function(){
+    mongoose.disconnect();
+    console.log("disconnected.")
+});
+
 var server = app.listen(3000, function() {
     var host = 'localhost';
     var port = server.address().port;
     console.log('App listening at http://%s:%s', host, port);
 });
- 
+
 module.exports = app;

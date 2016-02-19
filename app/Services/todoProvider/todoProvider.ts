@@ -23,6 +23,7 @@ export class todoProvider{
     }
     public addNewTodo(newToDo : todoItem){
         this.todos = [...this.todos, newToDo];
+        
     }
     
     public deleteToDo(todo :todoItem) {
