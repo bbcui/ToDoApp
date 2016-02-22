@@ -24,7 +24,7 @@
                     <!--</div>-->
                     </form> 
                     <div class="deleteBtn">
-                        <button type="button" class="btn btn-danger" (click)=deleteToDo(todo)>X</button>
+                        <button type="button" class="btn btn-danger" (click)=deleteToDo(todo) [disabled]=_todoProvider.editMode>X</button>
                     </div>
                 </div>
             </li>

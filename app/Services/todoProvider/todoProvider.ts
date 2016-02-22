@@ -12,7 +12,8 @@ export class todoProvider{
     todos = Array<todoItem>();
     private _http : Http;
     headers = new Headers();
-        
+    editMode = false;
+    
     private todoUrl = "/api/todos"
     
     public getToDos() {
@@ -35,12 +36,14 @@ export class todoProvider{
     }
     
     public deleteToDo(todo :todoItem) {
+        this.editMode = true;
         this._http.delete('/api/todo/'+todo._id).subscribe(response => {
             let index = this.todos.indexOf(todo);
             this.todos = [
             ...this.todos.slice(0,index),
             ...this.todos.slice(index+1)
             ];
+            this.editMode = false;
         }, err => console.log("Error in deleting."))
     } 
     

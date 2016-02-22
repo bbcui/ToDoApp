@@ -24,6 +24,7 @@ System.register(["angular2/core", 'angular2/http', 'rxjs/Rx'], function(exports_
                 function todoProvider(http) {
                     this.todos = Array();
                     this.headers = new http_1.Headers();
+                    this.editMode = false;
                     this.todoUrl = "/api/todos";
                     this._http = http;
                     this.headers.append('content-type', "application/json;charset=UTF-8");
@@ -45,9 +46,11 @@ System.register(["angular2/core", 'angular2/http', 'rxjs/Rx'], function(exports_
                 };
                 todoProvider.prototype.deleteToDo = function (todo) {
                     var _this = this;
+                    this.editMode = true;
                     this._http.delete('/api/todo/' + todo._id).subscribe(function (response) {
                         var index = _this.todos.indexOf(todo);
                         _this.todos = _this.todos.slice(0, index).concat(_this.todos.slice(index + 1));
+                        _this.editMode = false;
                     }, function (err) { return console.log("Error in deleting."); });
                 };
                 todoProvider.prototype.clearCompleted = function () {
