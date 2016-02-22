@@ -5,8 +5,7 @@ var mongoose = require('mongoose');
 var TodoModel = require('../models/TodoModel');
 
 router.post('/todo', function(req, res, next) {
-    var todo = new TodoModel({name:"halo", status: "completed"})
-    TodoModel.create(todo, function(err, post) {
+    TodoModel.create(req.body, function(err, post) {
         if (err) {
             next(err);
         } else {
@@ -21,7 +20,20 @@ router.get('/todos', function(req, res, next) {
             next(err);
         }
         res.json(post);
-        res.write("asdfsadf");
+    })
+})
+
+router.delete('/todo/:id', function(req, res, next) {
+    console.log(req.params.id);
+    TodoModel.remove({_id: req.params.id}, function(err) {
+        if (err) {
+            console.log("error in remove");
+            res.sendStatus(404);
+        }
+        else {
+            console.log(req.params.id + " removed");
+            res.sendStatus(200);
+        }
     })
 })
 

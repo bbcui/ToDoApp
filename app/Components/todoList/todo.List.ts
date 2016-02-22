@@ -3,13 +3,14 @@ import {todoItem} from '../../Models/todoItem/todo.item'
 import {NgFor} from "angular2/common"
 import {todoProvider} from "../../Services/todoProvider/todoProvider"
 import {searchPipe} from "../../Services/searchPipe/search-pipe"
+import {HTTP_PROVIDERS}    from 'angular2/http';
 
 @Component({
     selector: "todo-list",
     templateUrl: "app/Components/todoList/todo.List.html",
     styleUrls :["app/Components/todoList/todo.List.css"],
     directives:[NgFor],
-    providers: [todoProvider],
+    providers: [todoProvider, HTTP_PROVIDERS],
     pipes:[searchPipe]
 })
 
@@ -18,7 +19,7 @@ export class todoList implements OnInit{
     showCompleteButtonName: string = "Show all";
     
     constructor(private _todoProvider: todoProvider){
-        
+        _todoProvider.getToDos();
     }
     
     ngOnInit(){
@@ -65,11 +66,12 @@ export class todoList implements OnInit{
     }
     public deleteToDo(todo :todoItem) {
         this._todoProvider.deleteToDo(todo);
+        console.log(todo);
     }
     
     public toggleStatus(todo : todoItem) {
         //TODO:refactor into todoProvider
-        todo.status = (todo.status == "completed") ? "started" : "completed";
+        this._todoProvider.toggleStatus(todo);
     }
     
     public toggleShowCompleted(){

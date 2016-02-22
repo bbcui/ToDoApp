@@ -15,6 +15,9 @@ System.register([], function(exports_1) {
                 todoItem.prototype.toggleStatus = function () {
                     this.status = (this.status == "completed") ? "started" : "completed";
                 };
+                todoItem.prototype.getId = function () {
+                    return this._id;
+                };
                 return todoItem;
             })();
             exports_1("todoItem", todoItem);

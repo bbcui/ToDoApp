@@ -18,6 +18,7 @@ mongoose.connect('mongodb://bcui:123qwe@ds062438.mongolab.com:62438/bcui', funct
     }
 })
 
+
 // view engine setup
 app.set('views', __dirname);
 app.set('view engine', 'ejs');
@@ -42,12 +43,8 @@ app.use(function(req, res, next) {
  
 process.on('SIGINT', function () {
   console.log("Closing");
+  mongoose.disconnect();
   app.close();
-});
- 
-app.on('close', function(){
-    mongoose.disconnect();
-    console.log("disconnected.")
 });
 
 var server = app.listen(3000, function() {

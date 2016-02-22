@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../../Models/todoItem/todo.item"], function(exports_1) {
+System.register(["angular2/core", 'angular2/http', 'rxjs/Rx'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,36 +8,51 @@ System.register(["angular2/core", "../../Models/todoItem/todo.item"], function(e
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, todo_item_1;
+    var core_1, http_1;
     var todoProvider;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (todo_item_1_1) {
-                todo_item_1 = todo_item_1_1;
-            }],
+            function (http_1_1) {
+                http_1 = http_1_1;
+            },
+            function (_1) {}],
         execute: function() {
             todoProvider = (function () {
-                function todoProvider() {
+                function todoProvider(http) {
                     this.todos = Array();
-                    this.todos = [
-                        new todo_item_1.todoItem("To Do 1", "started"),
-                        new todo_item_1.todoItem("To Do 2", "started"),
-                        new todo_item_1.todoItem("To Do 3", "completed"),
-                        new todo_item_1.todoItem("To Do 4", "started")
-                    ];
+                    this.todoUrl = "/api/todos";
+                    this._http = http;
                 }
                 todoProvider.prototype.getToDos = function () {
+                    var _this = this;
+                    this._http.get(this.todoUrl).map(function (res) { return res.json(); })
+                        .subscribe(function (todos) { return _this.todos = todos; });
                     return this.todos;
                 };
                 todoProvider.prototype.addNewTodo = function (newToDo) {
-                    this.todos = this.todos.concat([newToDo]);
+                    var _this = this;
+                    console.log(newToDo);
+                    var headers = new http_1.Headers();
+                    headers.append('content-type', "application/json;charset=UTF-8");
+                    this._http.post('/api/todo', JSON.stringify(newToDo), { headers: headers }).map(function (response) { return response.json(); }).subscribe(function (data) {
+                        newToDo._id = data._id;
+                        _this.todos = _this.todos.concat([newToDo]);
+                        console.log(newToDo);
+                    }, function (error) { return console.log('Could not load todos.'); });
                 };
                 todoProvider.prototype.deleteToDo = function (todo) {
-                    var index = this.todos.indexOf(todo);
-                    this.todos = this.todos.slice(0, index).concat(this.todos.slice(index + 1));
+                    var _this = this;
+                    // this.todos = [
+                    //     ...this.todos.slice(0,index),
+                    //     ...this.todos.slice(index+1)
+                    // ];
+                    this._http.delete('/api/todo/' + todo._id).subscribe(function (response) {
+                        var index = _this.todos.indexOf(todo);
+                        _this.todos = _this.todos.slice(0, index).concat(_this.todos.slice(index + 1));
+                    }, function (err) { return console.log("Error in deleting."); });
                 };
                 todoProvider.prototype.clearCompleted = function () {
                     var todos = [];
@@ -48,9 +63,17 @@ System.register(["angular2/core", "../../Models/todoItem/todo.item"], function(e
                     });
                     this.todos = todos;
                 };
+                todoProvider.prototype.toggleStatus = function (todo) {
+                    var newTodo = Object.create(todo);
+                    newTodo.status = (todo.status == "completed") ? "started" : "completed";
+                    var index = this.todos.indexOf(todo);
+                    this.todos = this.todos.slice(0, index).concat([
+                        newTodo
+                    ], this.todos.slice(index + 1));
+                };
                 todoProvider = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [http_1.Http])
                 ], todoProvider);
                 return todoProvider;
             })();
