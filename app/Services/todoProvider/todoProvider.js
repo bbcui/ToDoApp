@@ -23,8 +23,10 @@ System.register(["angular2/core", 'angular2/http', 'rxjs/Rx'], function(exports_
             todoProvider = (function () {
                 function todoProvider(http) {
                     this.todos = Array();
+                    this.headers = new http_1.Headers();
                     this.todoUrl = "/api/todos";
                     this._http = http;
+                    this.headers.append('content-type', "application/json;charset=UTF-8");
                 }
                 todoProvider.prototype.getToDos = function () {
                     var _this = this;
@@ -35,9 +37,7 @@ System.register(["angular2/core", 'angular2/http', 'rxjs/Rx'], function(exports_
                 todoProvider.prototype.addNewTodo = function (newToDo) {
                     var _this = this;
                     console.log(newToDo);
-                    var headers = new http_1.Headers();
-                    headers.append('content-type', "application/json;charset=UTF-8");
-                    this._http.post('/api/todo', JSON.stringify(newToDo), { headers: headers }).map(function (response) { return response.json(); }).subscribe(function (data) {
+                    this._http.post('/api/todo', JSON.stringify(newToDo), { headers: this.headers }).map(function (response) { return response.json(); }).subscribe(function (data) {
                         newToDo._id = data._id;
                         _this.todos = _this.todos.concat([newToDo]);
                         console.log(newToDo);
@@ -45,10 +45,6 @@ System.register(["angular2/core", 'angular2/http', 'rxjs/Rx'], function(exports_
                 };
                 todoProvider.prototype.deleteToDo = function (todo) {
                     var _this = this;
-                    // this.todos = [
-                    //     ...this.todos.slice(0,index),
-                    //     ...this.todos.slice(index+1)
-                    // ];
                     this._http.delete('/api/todo/' + todo._id).subscribe(function (response) {
                         var index = _this.todos.indexOf(todo);
                         _this.todos = _this.todos.slice(0, index).concat(_this.todos.slice(index + 1));
@@ -64,12 +60,24 @@ System.register(["angular2/core", 'angular2/http', 'rxjs/Rx'], function(exports_
                     this.todos = todos;
                 };
                 todoProvider.prototype.toggleStatus = function (todo) {
-                    var newTodo = Object.create(todo);
+                    var newTodo = Object.assign(todo);
                     newTodo.status = (todo.status == "completed") ? "started" : "completed";
-                    var index = this.todos.indexOf(todo);
-                    this.todos = this.todos.slice(0, index).concat([
-                        newTodo
-                    ], this.todos.slice(index + 1));
+                    this.updateCurrent(todo, newTodo);
+                };
+                todoProvider.prototype.editName = function (todo, newName) {
+                    var newTodo = Object.assign(todo);
+                    newTodo.name = newName;
+                    this.updateCurrent(todo, newTodo);
+                    console.log(newTodo);
+                };
+                todoProvider.prototype.updateCurrent = function (oldTodo, newTodo) {
+                    var _this = this;
+                    this._http.put('/api/todo', JSON.stringify(newTodo), { headers: this.headers }).map(function (res) { return res.json; }).subscribe(function (data) {
+                        var index = _this.todos.indexOf(oldTodo);
+                        _this.todos = _this.todos.slice(0, index).concat([
+                            newTodo
+                        ], _this.todos.slice(index + 1));
+                    }, function (err) { return console.log("error updating."); });
                 };
                 todoProvider = __decorate([
                     core_1.Injectable(), 

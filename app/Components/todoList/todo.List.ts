@@ -48,7 +48,7 @@ export class todoList implements OnInit{
     
     public saveChanges(todo, todoInput, todoLabel, editForm){
         //TODO: refactor into todoprovider
-        todo.name = todoInput.value;
+        this._todoProvider.editName(todo, todoInput.value);
         this.editMode(editForm, todoLabel,todoInput);
     }
     

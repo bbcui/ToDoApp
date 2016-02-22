@@ -37,4 +37,15 @@ router.delete('/todo/:id', function(req, res, next) {
     })
 })
 
+router.put('/todo', function(req, res, next){
+    console.log(req.body);
+    TodoModel.update({_id: req.body._id}, req.body, function(err, result) {
+        if (err) {
+            res.send(err);
+        } else {
+            res.json(result);
+        }
+    })
+})
+
 module.exports = router;

@@ -62,7 +62,7 @@ System.register(["angular2/core", '../../Models/todoItem/todo.item', "angular2/c
                 };
                 todoList.prototype.saveChanges = function (todo, todoInput, todoLabel, editForm) {
                     //TODO: refactor into todoprovider
-                    todo.name = todoInput.value;
+                    this._todoProvider.editName(todo, todoInput.value);
                     this.editMode(editForm, todoLabel, todoInput);
                 };
                 todoList.prototype.cancelUpdate = function (todo, todoInput, todoLabel, editForm) {
